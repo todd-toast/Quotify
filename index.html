@@ -4,32 +4,59 @@
         <meta charset="UTF-8" />
         <title>Comma separated string converter</title>
         <style>
-            #container {
+            #textAreaContainer {
                 display: flex;
                 justify-content: space-evenly;
+            }
+            #container {
+                display: flex;
+                flex-direction: column;
             }
             textarea {
                 width: 40%;
                 height: 600px;
             }
+
+            #selectContainer {
+                margin-top: 2rem;
+                display: flex;
+                justify-content: center;
+            }
         </style>
     </head>
     <body>
         <div id="container">
-            <textarea aria-label="Input Text Container" id="inputText" oninput="convertStrings()"></textarea>
-            <textarea aria-label="Output Text Container" id="outputText"></textarea>
+            <div id="textAreaContainer">
+                <textarea aria-label="Input Text Container" id="inputText" oninput="convertStrings()"></textarea>
+                <textarea aria-label="Output Text Container" id="outputText"></textarea>
+            </div>
+            <div id="selectContainer">
+                <select aria-label="Quote Selector" id="quoteSelector" onchange="convertStrings()">
+                    <option value="double">Double Quotes</option>
+                    <option value="single">Single Quotes</option>
+                    <option value="none">No Quotes</option>
+                </select>
+            </div>
         </div>
         <script>
             function convertStrings() {
+                const quoteSelectorValue = document.getElementById('quoteSelector').value
+                const quoteType =
+                    quoteSelectorValue === 'double'
+                        ? `"`
+                        : quoteSelectorValue === 'single'
+                        ? `'`
+                        : ``
                 const inputTextArea = document.getElementById('inputText')
-                const styledLines = inputTextArea.value.split(/\n/).map((line) => `"${line}",`)
+
+                const styledLines = inputTextArea.value.split(/\n/).map((line) => `${quoteType}${line}${quoteType},`)
                 const lastIndex = styledLines.length - 1
 
                 styledLines[lastIndex] = styledLines[lastIndex].split(/,/)[0]
 
-                const outputTextArea = document.getElementById("outputText")
+                const outputTextArea = document.getElementById('outputText')
 
-                outputTextArea.value = ""
+                outputTextArea.value = ''
 
                 styledLines.forEach((line) => {
                     outputTextArea.value += `${line}\n`
