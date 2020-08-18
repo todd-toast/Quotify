@@ -13,22 +13,24 @@
         }
     </style>
     <div id="container">
-      <textarea id="inputText" oninput="convertStrings()"></textarea>
-      <textarea id="outputText"></textarea>
+      <textarea aria-label="Input Text Container" id="inputText" oninput="convertStrings()"></textarea>
+      <textarea aria-label="Output Text Container" id="outputText"></textarea>
     </div>
     <script>
         function convertStrings() {
-            const t = document
-                .getElementById("inputText")
-                .value.split(/\n/)
-                .map((t) => `"${t}",`);
-            let e = t[t.length - 1];
-            (e = e.split(/,/)[0]), (t[t.length - 1] = e);
-            const n = document.getElementById("outputText");
-            (n.value = ""),
-                t.forEach((t) => {
-                    n.value += `${t}\n`;
-                });
+            const inputTextArea = document.getElementById('inputText')
+            const styledLines = inputTextArea.value.split(/\n/).map((line) => `"${line}",`)
+            const lastIndex = styledLines.length - 1
+
+            styledLines[lastIndex] = styledLines[lastIndex].split(/,/)[0]
+
+            const outputTextArea = document.getElementById("outputText")
+
+            outputTextArea.value = ""
+
+            styledLines.forEach((line) => {
+                outputTextArea.value += `${line}\n`
+            })
         }
     </script>
 </html>
