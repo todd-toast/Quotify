@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-    <meta charset="UTF-8" />
-    <title>Comma separated string converter</title>
-    <style>
-        #container {
-            display: flex;
-            justify-content: space-evenly;
-        }
-        textarea {
-            width: 40%;
-            height: 600px;
-        }
-    </style>
-    <div id="container">
-      <textarea aria-label="Input Text Container" id="inputText" oninput="convertStrings()"></textarea>
-      <textarea aria-label="Output Text Container" id="outputText"></textarea>
-    </div>
-    <script>
-        function convertStrings() {
-            const inputTextArea = document.getElementById('inputText')
-            const styledLines = inputTextArea.value.split(/\n/).map((line) => `"${line}",`)
-            const lastIndex = styledLines.length - 1
+    <head>
+        <meta charset="UTF-8" />
+        <title>Comma separated string converter</title>
+        <style>
+            #container {
+                display: flex;
+                justify-content: space-evenly;
+            }
+            textarea {
+                width: 40%;
+                height: 600px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <textarea aria-label="Input Text Container" id="inputText" oninput="convertStrings()"></textarea>
+            <textarea aria-label="Output Text Container" id="outputText"></textarea>
+        </div>
+        <script>
+            function convertStrings() {
+                const inputTextArea = document.getElementById('inputText')
+                const styledLines = inputTextArea.value.split(/\n/).map((line) => `"${line}",`)
+                const lastIndex = styledLines.length - 1
 
-            styledLines[lastIndex] = styledLines[lastIndex].split(/,/)[0]
+                styledLines[lastIndex] = styledLines[lastIndex].split(/,/)[0]
 
-            const outputTextArea = document.getElementById("outputText")
+                const outputTextArea = document.getElementById("outputText")
 
-            outputTextArea.value = ""
+                outputTextArea.value = ""
 
-            styledLines.forEach((line) => {
-                outputTextArea.value += `${line}\n`
-            })
-        }
-    </script>
+                styledLines.forEach((line) => {
+                    outputTextArea.value += `${line}\n`
+                })
+            }
+        </script>
+    </body>
 </html>
